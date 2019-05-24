@@ -22,6 +22,6 @@ export default class HerbalTeaStrategy extends Strategy {
   }
 
   updateIncreasePower() {
-    if (this.drug.expiresIn <= 0) this.increasePwr *= 2;
+    if (this.drug.expiresIn <= 0) this.increasePwr = 2;
   }
 }

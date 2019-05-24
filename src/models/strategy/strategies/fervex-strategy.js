@@ -24,8 +24,8 @@ export default class FervexStrategy extends Strategy {
 
   updateIncreasePower() {
     if (this.drug.expiresIn <= 10 && this.drug.expiresIn > 5)
-      this.increasePwr *= 2;
-    else if (this.drug.expiresIn <= 5) this.increasePwr *= 3;
+      this.increasePwr = 2;
+    else if (this.drug.expiresIn <= 5) this.increasePwr = 3;
   }
 
   updateBenefit() {

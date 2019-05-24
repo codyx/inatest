@@ -29,6 +29,6 @@ export default class NormalDrugStrategy extends Strategy {
   }
 
   updateDegradePower() {
-    if (this.drug.expiresIn <= 0) this.degradePwr *= 2;
+    if (this.drug.expiresIn <= 0) this.degradePwr = 2;
   }
 }
