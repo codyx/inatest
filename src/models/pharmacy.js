@@ -7,6 +7,7 @@ export default class Pharmacy {
    */
   constructor(drugs = []) {
     this.drugs = drugs;
+    this.stratCtxts = this.drugs.map(drug => new StrategyContext(drug));
   }
 
   /**
@@ -15,9 +16,7 @@ export default class Pharmacy {
    * When used on a trial test, a call to this function simulates the effects of one elapsed day.
    */
   updateBenefitValue() {
-    this.drugs = this.drugs.map(drug => {
-      const stratCtxt = new StrategyContext(drug);
-
+    this.drugs = this.stratCtxts.map(stratCtxt => {
       stratCtxt.ContextInterface();
       return stratCtxt.strategy.drug;
     });
