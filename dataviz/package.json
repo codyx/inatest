@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "postinstall": "cd .. && PRETTIFY=true npm start",
     "dev": "next",
     "build": "next build",
     "start": "next start"
@@ -12,6 +13,9 @@
   "author": "Aimeric Seguin",
   "license": "ISC",
   "dependencies": {
+    "@material-ui/core": "^4.0.0",
+    "@material-ui/icons": "^4.0.0",
+    "fontfaceobserver": "^2.1.0",
     "next": "^8.1.0",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
