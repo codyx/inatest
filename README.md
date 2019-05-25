@@ -2,6 +2,8 @@
 
 Starting this program will run a new trial routine and store the output's result in "out/output.txt" by default.
 
+![alt text](https://github.com/codyx/inatest/raw/master/dataviz.png)
+
 ## Table of Contents
 
 - [Node version](#node)
