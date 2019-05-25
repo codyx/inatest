@@ -8,21 +8,28 @@ import Pharmacy from "./models/pharmacy";
  * @param {Pharmacy} trial trial to run.
  * @param {number} indent indentation used when prettifying.
  * @param {number} trialDaysDuration trial duration in days.
+ * @param {boolean} log should log or not jsonLog on "out" dir.
  */
-export default function runTrial(trial, indent = 0, trialDaysDuration = 30) {
+export default function runTrial(
+  trial,
+  indent = 0,
+  trialDaysDuration = 30,
+  log = true
+) {
   if (!(trial instanceof Pharmacy)) throw new Error("invalid trial type");
   trialDaysDuration = normalizeTrialDaysDuration(trialDaysDuration);
 
   const jsonLog = [];
-
   for (let elapsedDays = 0; elapsedDays < trialDaysDuration; elapsedDays++) {
     const drugsOfCurDay = trial.updateBenefitValue();
-    jsonLog.push(JSON.stringify(drugsOfCurDay, null, indent));
+    if (log) jsonLog.push(JSON.stringify(drugsOfCurDay, null, indent));
   }
 
-  const ext = indent > 0 ? "json" : "txt"; // json ext. to enable code highlighting in major IDEs.
-  fs.writeFileSync(`out/output.${ext}`, jsonLog);
-  logger.info("success");
+  if (log) {
+    const ext = indent > 0 ? "json" : "txt"; // json ext. to enable code highlighting in major IDEs.
+    fs.writeFileSync(`out/output.${ext}`, jsonLog);
+    logger.info("success");
+  }
 }
 
 const MAX_TRIAL_DURATION = 365 * 30; // 30 years should be enough...
@@ -32,9 +39,5 @@ const normalizeTrialDaysDuration = duration => {
     throw new Error("invalid TrialDaysDuration type");
 
   duration = Math.abs(duration);
-  if (duration > MAX_TRIAL_DURATION) {
-    logger.info(`max trial duration exceeded. Using ${MAX_TRIAL_DURATION}d`);
-    return MAX_TRIAL_DURATION;
-  }
-  return duration;
+  return duration > MAX_TRIAL_DURATION ? MAX_TRIAL_DURATION : duration;
 };
