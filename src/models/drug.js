@@ -2,8 +2,8 @@ export default class Drug {
   /**
    *
    * @param {string} name denotes the drug name.
-   * @param {number} expiresIn denotes how powerful the drug is.
-   * @param {number} benefit denotes the number of days we have until the item expires.
+   * @param {number} expiresIn denotes the number of days we have until the item expires.
+   * @param {number} benefit denotes how powerful the drug is.
    */
   constructor(name, expiresIn, benefit) {
     // Proposal: normalize parameters values (e.g. a benefit of 51 becomes a benefit of 50)
