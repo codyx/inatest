@@ -21,9 +21,8 @@ export default function runTrial(trial, indent = 0, trialDaysDuration = 30) {
   }
 
   const ext = indent > 0 ? "json" : "txt"; // json ext. to enable code highlighting in major IDEs.
-  fs.writeFileSync(`out/output.${ext}`, jsonLog, err =>
-    err ? logger.error(err) : logger.info("success")
-  );
+  fs.writeFileSync(`out/output.${ext}`, jsonLog);
+  logger.info("success");
 }
 
 const MAX_TRIAL_DURATION = 365 * 30; // 30 years should be enough...
