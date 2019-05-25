@@ -27,7 +27,10 @@ export default function runTrial(
 
   if (log) {
     const ext = indent > 0 ? "json" : "txt"; // json ext. to enable code highlighting in major IDEs.
-    fs.writeFileSync(`out/output.${ext}`, jsonLog);
+    const jsonifyArr = s => `[${s.toString()}]`;
+    const content = indent > 0 ? jsonifyArr(jsonLog) : jsonLog;
+
+    fs.writeFileSync(`out/output.${ext}`, content);
     logger.info("success");
   }
 }
