@@ -13,11 +13,4 @@ describe("Herbal Tea rules effects over time", () => {
       new Pharmacy([new Drug("Herbal Tea", 11, 50)]).updateBenefitValue()
     ).toEqual([new Drug("Herbal Tea", 10, 50)]);
   });
-
-  // TODO: check me.
-  it("ISSUE: should not happen", () => {
-    expect(
-      new Pharmacy([new Drug("Herbal Tea", 0, 40)]).updateBenefitValue()
-    ).toEqual([new Drug("Herbal Tea", -1, 42)]);
-  });
 });
