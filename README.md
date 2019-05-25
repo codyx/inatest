@@ -38,13 +38,6 @@ npm run lint
 npm test
 ```
 
-## Check diff with original output
-```sh
-wget https://raw.githubusercontent.com/inato/take-home-test/master/output.txt
-npm start
-diff output.txt out/output.txt
-```
-
 ## Prettify
 
 Enable prettify (will generate a pseudo-json file in the "out" folder to trigger syntax highlighting).

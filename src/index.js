@@ -1,24 +1,10 @@
 import dotenv from "dotenv";
 dotenv.config();
-import fs from "fs";
 
 import logger from "./services/logger";
 import Drug from "./models/drug";
 import Pharmacy from "./models/pharmacy";
-
-function runTrial(trial, indent = 0) {
-  const jsonLog = [];
-
-  for (let elapsedDays = 0; elapsedDays < 30; elapsedDays++) {
-    const drugsOfCurDay = trial.updateBenefitValue();
-    jsonLog.push(JSON.stringify(drugsOfCurDay, null, indent));
-  }
-
-  const ext = indent > 0 ? "json" : "txt"; // json ext. to enable code highlighting in major IDEs.
-  fs.writeFile(`out/output.${ext}`, jsonLog, err =>
-    err ? logger.error(err) : logger.info("success")
-  );
-}
+import runTrial from "./run-trial";
 
 try {
   const drugs = [
@@ -33,7 +19,10 @@ try {
     "PRETTIFY" in process.env && process.env.PRETTIFY === "true";
   logger.debug(`using prettify: ${shouldPrettify}`);
 
-  runTrial(trial, shouldPrettify ? 4 : 0);
+  const trialDuration =
+    "TRIAL_DURATION" in process.env ? process.env.TRIAL_DURATION : 30;
+
+  runTrial(trial, shouldPrettify ? 4 : 0, trialDuration);
 } catch (err) {
   logger.error(`exception thrown: ${err} (${err.stack})`, err, err.stack);
 }
