@@ -7,6 +7,7 @@ import Chart from "./components/chart";
 import Container from "@material-ui/core/Container";
 import { styled } from "@material-ui/styles";
 import { ThemeProvider } from "@material-ui/styles";
+import CircularProgress from "@material-ui/core/CircularProgress";
 import theme from "./theme";
 import sets from "../../out/output.json";
 
@@ -31,12 +32,12 @@ class App extends React.Component {
 
   componentDidMount() {
     Fonts();
-    this.prepareDrugs();
+    window.setTimeout(this.prepareDrugs, 1000);
   }
 
   render() {
     const { drugs } = this.state;
-    return (
+    return drugs.length ? (
       <ThemeProvider theme={theme}>
         <Header position="static" color="primary">
           <Toolbar>
@@ -54,6 +55,13 @@ class App extends React.Component {
           </Container>
         ))}
       </ThemeProvider>
+    ) : (
+      <Container maxWidth="sm">
+        <CircularProgress size={300} />
+        <Typography variant="h6" color="inherit">
+          Preparing results. Please wait...
+        </Typography>
+      </Container>
     );
   }
 }
