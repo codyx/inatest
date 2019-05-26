@@ -20,17 +20,14 @@ class App extends React.Component {
   };
 
   prepareDrugs = () => {
-    const data = [].concat(...sets);
+    if (Array.isArray(sets) && sets.length > 0) {
+      const data = [].concat(...sets);
+      const names = sets[0].map(set => set.name);
+      const drugs = [...names.map(name => data.filter(x => x.name === name))];
 
-    const drugs = [
-      data.filter(x => x.name === "Doliprane"),
-      data.filter(x => x.name === "Fervex"),
-      data.filter(x => x.name === "Herbal Tea"),
-      data.filter(x => x.name === "Magic Pill"),
-      data.filter(x => x.name === "Dafalgan")
-    ];
-    this.setState({ drugs: drugs.filter(elem => elem.length > 0) });
-  }
+      this.setState({ drugs: drugs.filter(elem => elem.length > 0) });
+    }
+  };
 
   componentDidMount() {
     Fonts();
