@@ -1,6 +1,8 @@
 # Solution proposal #Inato
 
-Starting this program will run a new trial routine and store the output's result in "out/output.txt" by default.
+Starting this program will run the original trial from the instructions and save the output in "out/output.txt".
+
+The instructions of this test can be found in the "instructions" directory at the root of the project.
 
 ![alt text](https://github.com/codyx/inatest/raw/master/dataviz.png)
 
