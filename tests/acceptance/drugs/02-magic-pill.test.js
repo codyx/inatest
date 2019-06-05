@@ -1,10 +1,11 @@
-import Drug from "../../../src/models/drug";
-import Pharmacy from "../../../src/models/pharmacy";
+import makePharma from "./make-pharmacy";
+
+const name = "Magic Pill";
 
 describe("Magic Pill rules effects over time", () => {
   it("should never expire nor decrease in Benefit", () => {
     expect(
-      new Pharmacy([new Drug("Magic Pill", 15, 40)]).updateBenefitValue()
-    ).toEqual([new Drug("Magic Pill", 15, 40)]);
+      makePharma({ name, expiresIn: 15, benefit: 40 }).updateBenefitValue()[0]
+    ).toEqual({ name, expiresIn: 15, benefit: 40 });
   });
 });

@@ -1,16 +1,17 @@
-import Drug from "../../../src/models/drug";
-import Pharmacy from "../../../src/models/pharmacy";
+import makePharma from "./make-pharmacy";
+
+const name = "Herbal Tea";
 
 describe("Herbal Tea rules effects over time", () => {
   it("should increase in Benefit the older it gets", () => {
     expect(
-      new Pharmacy([new Drug("Herbal Tea", 11, 5)]).updateBenefitValue()
-    ).toEqual([new Drug("Herbal Tea", 10, 6)]);
+      makePharma({ name, expiresIn: 11, benefit: 5 }).updateBenefitValue()[0]
+    ).toEqual({ name, expiresIn: 10, benefit: 6 });
   });
 
   it("should never set the Benefit to more than 50", () => {
     expect(
-      new Pharmacy([new Drug("Herbal Tea", 11, 50)]).updateBenefitValue()
-    ).toEqual([new Drug("Herbal Tea", 10, 50)]);
+      makePharma({ name, expiresIn: 11, benefit: 50 }).updateBenefitValue()[0]
+    ).toEqual({ name, expiresIn: 10, benefit: 50 });
   });
 });
