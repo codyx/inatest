@@ -4,7 +4,6 @@ export default class HerbalTeaStrategy extends Strategy {
   constructor(drug) {
     super();
     this.drug = drug;
-    this.maxBenefit = 50;
     this.increasePwr = 1;
   }
 
@@ -13,15 +12,20 @@ export default class HerbalTeaStrategy extends Strategy {
    * and can modify the underlying drug's attributes.
    */
   RulesInterface() {
-    this.updateIncreasePower();
-
     this.drug.expiresIn = this.drug.expiresIn - 1;
 
-    const add = this.drug.benefit + this.increasePwr;
-    this.drug.benefit = add <= this.maxBenefit ? add : 50;
+    this.updateIncreasePower();
+
+    const potentialNewBenefit = this.drug.benefit + this.increasePwr;
+    this.drug.benefit =
+      potentialNewBenefit <= HerbalTeaStrategy.maxBenefit
+        ? potentialNewBenefit
+        : 50;
   }
 
   updateIncreasePower() {
-    if (this.drug.expiresIn <= 0) this.increasePwr = 2;
+    if (this.drug.expiresIn < 0) this.increasePwr = 2;
   }
 }
+
+HerbalTeaStrategy.maxBenefit = 50;
