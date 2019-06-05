@@ -7,7 +7,9 @@ export default class Pharmacy {
    */
   constructor(drugs = []) {
     this.drugs = drugs;
-    this.stratCtxts = this.drugs.map(drug => new StrategyContext(drug));
+    this.stratCtxts = [
+      ...new Set(this.drugs.map(drug => new StrategyContext(drug)))
+    ];
   }
 
   /**
