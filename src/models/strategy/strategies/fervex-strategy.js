@@ -4,7 +4,6 @@ export default class FervexStrategy extends Strategy {
   constructor(drug) {
     super();
     this.drug = drug;
-    this.maxBenefit = 50;
     this.increasePwr = 1;
   }
 
@@ -17,9 +16,13 @@ export default class FervexStrategy extends Strategy {
 
     this.updateIncreasePower();
 
-    const add = this.drug.benefit + this.increasePwr;
-    this.drug.benefit = add <= this.maxBenefit ? add : 50;
-    this.updateBenefit();
+    const potentialNewBenefit = this.drug.benefit + this.increasePwr;
+    this.drug.benefit =
+      potentialNewBenefit <= FervexStrategy.maxBenefit
+        ? potentialNewBenefit
+        : FervexStrategy.maxBenefit;
+
+    if (this.drug.expiresIn < 0) this.drug.benefit = 0;
   }
 
   updateIncreasePower() {
@@ -27,8 +30,6 @@ export default class FervexStrategy extends Strategy {
       this.increasePwr = 2;
     else if (this.drug.expiresIn <= 5) this.increasePwr = 3;
   }
-
-  updateBenefit() {
-    if (this.drug.expiresIn < 0) this.drug.benefit = 0;
-  }
 }
+
+FervexStrategy.maxBenefit = 50;

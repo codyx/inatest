@@ -1,10 +1,17 @@
-import Drug from "../../../src/models/drug";
-import Pharmacy from "../../../src/models/pharmacy";
+import makePharma from "./make-pharmacy";
+
+const name = "Dafalgan";
 
 describe("Dafalgan drug rules over time", () => {
   it("should degrade in Benefit twice as fast as normal drugs", () => {
     expect(
-      new Pharmacy([new Drug("Dafalgan", 2, 3)]).updateBenefitValue()
-    ).toEqual([new Drug("Dafalgan", 1, 1)]);
+      makePharma({ name, expiresIn: 2, benefit: 3 }).updateBenefitValue()[0]
+    ).toEqual({ name, expiresIn: 1, benefit: 1 });
+  });
+
+  it("should degrade in Benefit twice as fast as normal drugs even when expired", () => {
+    expect(
+      makePharma({ name, expiresIn: 0, benefit: 4 }).updateBenefitValue()[0]
+    ).toEqual({ name, expiresIn: -1, benefit: 0 });
   });
 });

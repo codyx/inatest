@@ -1,34 +1,35 @@
-import Drug from "../../../src/models/drug";
-import Pharmacy from "../../../src/models/pharmacy";
+import makePharma from "./make-pharmacy";
+
+const name = "Fervex";
 
 describe("Fervex rules effects over time", () => {
   it("should increase in Benefit as its expiration date approaches", () => {
     expect(
-      new Pharmacy([new Drug("Fervex", 15, 40)]).updateBenefitValue()
-    ).toEqual([new Drug("Fervex", 14, 41)]);
+      makePharma({ name, expiresIn: 15, benefit: 40 }).updateBenefitValue()[0]
+    ).toEqual({ name, expiresIn: 14, benefit: 41 });
   });
 
   it("should never set the Benefit to more than 50", () => {
     expect(
-      new Pharmacy([new Drug("Fervex", 15, 50)]).updateBenefitValue()
-    ).toEqual([new Drug("Fervex", 14, 50)]);
+      makePharma({ name, expiresIn: 15, benefit: 50 }).updateBenefitValue()[0]
+    ).toEqual({ name, expiresIn: 14, benefit: 50 });
   });
 
   it("should increase Benefit by 2 when there are 10 days or less", () => {
     expect(
-      new Pharmacy([new Drug("Fervex", 10, 40)]).updateBenefitValue()
-    ).toEqual([new Drug("Fervex", 9, 42)]);
+      makePharma({ name, expiresIn: 10, benefit: 40 }).updateBenefitValue()[0]
+    ).toEqual({ name, expiresIn: 9, benefit: 42 });
   });
 
   it("should increase Benefit by 3 when there are 5 days or less", () => {
     expect(
-      new Pharmacy([new Drug("Fervex", 5, 40)]).updateBenefitValue()
-    ).toEqual([new Drug("Fervex", 4, 43)]);
+      makePharma({ name, expiresIn: 5, benefit: 40 }).updateBenefitValue()[0]
+    ).toEqual({ name, expiresIn: 4, benefit: 43 });
   });
 
   it("should make Benefit drop to 0 after the expiration date", () => {
     expect(
-      new Pharmacy([new Drug("Fervex", 0, 40)]).updateBenefitValue()
-    ).toEqual([new Drug("Fervex", -1, 0)]);
+      makePharma({ name, expiresIn: 0, benefit: 40 }).updateBenefitValue()[0]
+    ).toEqual({ name, expiresIn: -1, benefit: 0 });
   });
 });
